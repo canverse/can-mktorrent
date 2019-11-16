@@ -1,32 +1,32 @@
 // hello.cc
-#include <node_api.h>
+#include "napi.h"
 #include <iostream>
 #include <stdint.h>
 #include "lib/mktorrent.h"
 
+#define CHECK_STATUS if (status != napi_ok) { napi_throw_error(env, "1", "Something craptastic happened"); return NULL; }
+using namespace Napi;
+
 namespace mktorrent{
 
-napi_value create_torrent(napi_env env, napi_callback_info args) {
-  napi_status status;
+  void Create_torrent(const CallbackInfo& info) {
+    size_t argc = info.Length();
+    int argCount = static_cast<int>(argc);
+    char* argv[argCount];
 
-  std::cout << "come on";
+    for (int i = 0; i < argCount; i++) {
+      std::string arg = info[i].As<String>().Utf8Value();
+      std::cout << "argument: " << arg << std::endl;
+    }
 
-  if (status != napi_ok) return nullptr;
-  return NULL;
-}
+    create_torrent(argCount, argv);
+  }
 
-napi_value init(napi_env env, napi_value exports) {
-  napi_status status;
-  napi_value fn;
+  static Object init(Env env, Object exports) {
+    exports["create_torrent"] = Napi::Function::New(env, Create_torrent);
+    return exports;
+  }
 
-  status = napi_create_function(env, nullptr, 0, create_torrent, nullptr, &fn);
-  if (status != napi_ok) return nullptr;
-
-  status = napi_set_named_property(env, exports, "create", fn);
-  if (status != napi_ok) return nullptr;
-  return exports;
-}
-
-NAPI_MODULE(NODE_GYP_MODULE_NAME, init)
+  NODE_API_MODULE(NODE_GYP_MODULE_NAME, init)
 
 }
