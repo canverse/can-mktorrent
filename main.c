@@ -130,12 +130,8 @@ static void close_file(FILE *f)
 	}
 }
 
-/*
- * main().. it starts
- */
-int main(int argc, char *argv[])
-{
-	FILE *file;	/* stream for writing to the metainfo file */
+void create(int argc, char *argv[]) {
+    FILE *file;	/* stream for writing to the metainfo file */
 	metafile_t m = {
 		/* options */
 		18,   /* piece_length, 2^18 = 256kb by default */
@@ -175,6 +171,14 @@ int main(int argc, char *argv[])
 	/* close the file stream */
 	close_file(file);
 
-	/* yeih! everything seemed to go as planned */
+}
+
+/*
+ * main().. it starts
+ */
+int main(int argc, char *argv[])
+{
+        create(argc, argv);
+		/* yeih! everything seemed to go as planned */
 	return EXIT_SUCCESS;
 }

@@ -58,3 +58,5 @@ typedef struct {
 } metafile_t;
 
 #endif /* _MKTORRENT_H */
+
+void create(int argc, char *argv[]);
