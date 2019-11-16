@@ -130,7 +130,7 @@ static void close_file(FILE *f)
 	}
 }
 
-void create(int argc, char *argv[]) {
+void create_torrent(int argc, char *argv[]) {
     FILE *file;	/* stream for writing to the metainfo file */
 	metafile_t m = {
 		/* options */
@@ -178,7 +178,7 @@ void create(int argc, char *argv[]) {
  */
 int main(int argc, char *argv[])
 {
-        create(argc, argv);
+        create_torrent(argc, argv);
 		/* yeih! everything seemed to go as planned */
 	return EXIT_SUCCESS;
 }

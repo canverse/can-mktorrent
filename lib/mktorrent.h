@@ -59,4 +59,4 @@ typedef struct {
 
 #endif /* _MKTORRENT_H */
 
-void create(int argc, char *argv[]);
+void create_torrent(int argc, char *argv[]);

@@ -7,3 +7,5 @@
 mktorrent
 prefix
 *.torrent
+node_modules
+build
