@@ -163,7 +163,7 @@ EXPORT void write_metainfo(FILE *f, metafile_t *m, unsigned char *hash_string)
 	fwrite(hash_string, 1, m->pieces * SHA_DIGEST_LENGTH, f);
 
 	/* set the private flag */
-	if (m->private)
+	if (m->private_torrent)
 		fprintf(f, "7:privatei1e");
 
 	if (m->source)

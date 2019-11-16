@@ -480,7 +480,7 @@ EXPORT void init(metafile_t *m, int argc, char *argv[])
 			m->metainfo_file_path = optarg;
 			break;
 		case 'p':
-			m->private = 1;
+			m->private_torrent = 1;
 			break;
 		case 's':
 			m->source = optarg;
