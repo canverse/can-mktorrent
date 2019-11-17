@@ -73,7 +73,7 @@ module.exports = function createTorrent(
       let webSeeds = "";
       if (stat.isFile()) {
         webSeeds = opts.webSeedUrls
-          .map(x => path.join(x, path.basename(expandedPath)))
+          .map(x => `"${path.join(x, path.basename(expandedPath))}"`)
           .join(",");
       } else {
         webSeeds = opts.webSeedUrls.join(",");
@@ -81,7 +81,7 @@ module.exports = function createTorrent(
       args.push("-w", webSeeds);
     }
 
-    args.push(expandedPath);
+    args.push(`"${expandedPath}"`);
 
     const binaryPath = path.join(module.path, "build/Release/mkt");
     exec(`${binaryPath} ${args.join(" ")}`, (error, stdout, stderr) => {
