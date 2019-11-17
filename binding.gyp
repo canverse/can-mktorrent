@@ -9,6 +9,22 @@
       "defines": [
         'PRIoff="\\"ld\\""',
         'VERSION="\\"1.1\\""',
+      ],
+      "target_name": "mkt",
+      "type": "executable",
+      "sources": [
+        'lib/ftw.c',
+        'lib/init.c',
+        'lib/sha1.c',
+        'lib/hash.c',
+        'lib/output.c',
+        'lib/main.c',
+      ],
+    },
+    {
+      "defines": [
+        'PRIoff="\\"ld\\""',
+        'VERSION="\\"1.1\\""',
         'NAPI_DISABLE_CPP_EXCEPTIONS'
       ],
       'include_dirs': ["<!@(node -p \"require('node-addon-api').include\")"],
