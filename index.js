@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const {exec} = require("child_process");
+const { exec } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 
@@ -62,7 +62,7 @@ module.exports = function createTorrent(
     }
 
     if (opts.output) {
-      args.push("-o", opts.output);
+      args.push("-o", `"${opts.output}"`);
     }
 
     if (opts.private) {
