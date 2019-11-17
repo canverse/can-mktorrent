@@ -73,7 +73,7 @@ module.exports = function createTorrent(
       let webSeeds = "";
       if (stat.isFile()) {
         webSeeds = opts.webSeedUrls
-          .map(x => path.join(x, path.basename(sourcePath)))
+          .map(x => path.join(x, path.basename(expandedPath)))
           .join(",");
       } else {
         webSeeds = opts.webSeedUrls.join(",");
