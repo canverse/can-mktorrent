@@ -68,7 +68,7 @@ static void write_file_list(FILE *f, flist_t *list)
 		/* the file list contains a dictionary for every file
 		   with entries for the length and path
 		   write the length first */
-		fprintf(f, "d6:lengthi%" PRIoff "e4:pathl", list->size);
+		fprintf(f, "d6:lengthi%lde4:pathl", list->size);
 		/* the file path is written as a list of subdirectories
 		   and the last entry is the filename
 		   sorry this code is even uglier than the rest */
@@ -139,7 +139,7 @@ EXPORT void write_metainfo(FILE *f, metafile_t *m, unsigned char *hash_string)
 				(unsigned long)strlen(m->comment),
 				m->comment);
 	/* I made this! */
-	fprintf(f, "10:created by13:mktorrent " VERSION);
+	fprintf(f, "10:created by13:mktorrent 1.1");
 	/* add the creation date */
 	if (!m->no_creation_date)
 		fprintf(f, "13:creation datei%lde",
@@ -151,7 +151,7 @@ EXPORT void write_metainfo(FILE *f, metafile_t *m, unsigned char *hash_string)
 	/* first entry is either 'length', which specifies the length of a
 	   single file torrent, or a list of files and their respective sizes */
 	if (!m->target_is_directory)
-		fprintf(f, "6:lengthi%" PRIoff "e", m->file_list->size);
+		fprintf(f, "6:lengthi%lde", m->file_list->size);
 	else
 		write_file_list(f, m->file_list);
 

@@ -156,7 +156,7 @@ void create_torrent(int argc, char *argv[]) {
 	};
 
 	/* print who we are */
-	printf("mktorrent " VERSION " (c) 2007, 2009 Emil Renner Berthing\n\n");
+	printf("mktorrent 1.1 (c) 2007, 2009 Emil Renner Berthing\n\n");
 
 	/* process options */
 	init(&m, argc, argv);

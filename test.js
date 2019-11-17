@@ -4,7 +4,7 @@ mkt({
   announceUrls: ["http://detemps.theia.feralhosting.com/cantracker/announce"],
   comment: "created by can-mktorrent",
   pieceLength: 20,
-  sourcePath: "~/Projects",
+  sourcePath: "~/.zshrc",
   webSeedUrls: ["https://detemps.theia.feralhosting.com/canTorrent/webSeed"],
   private: true
 }).then(() => {

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { exec } = require("child_process");
+const {exec} = require("child_process");
 const path = require("path");
 const fs = require("fs");
 
@@ -83,6 +83,7 @@ module.exports = function createTorrent(
 
     args.push(`"${expandedPath}"`);
 
+    console.log(args.join(" "));
     const binaryPath = path.join(module.path, "build/Release/mkt");
     exec(`${binaryPath} ${args.join(" ")}`, (error, stdout, stderr) => {
       if (error) {
