@@ -10,3 +10,4 @@ prefix
 node_modules
 build
 *.log
+.tool_versions
