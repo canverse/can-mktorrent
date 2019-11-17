@@ -10,6 +10,7 @@
   "files": [
     "*.js",
     "binding.gyp",
+    "lib/",
     "*.cc",
     "*.c"
   ],
