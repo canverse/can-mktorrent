@@ -18,6 +18,7 @@
     "install": "node-gyp rebuild"
   },
   "dependencies": {
+    "chalk": "^3.0.0",
     "node-addon-api": "^1.7.1",
     "node-gyp": "^6.0.1"
   }

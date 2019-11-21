@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-const { exec } = require("child_process");
+const { spawn } = require("child_process");
 const path = require("path");
 const fs = require("fs");
+const { DEBUG: _DEBUG, INFO, ERROR, WARN } = require("./utils");
 
 function expandHome(p) {
   return p.startsWith("~/") ? path.join(process.env.HOME, p.slice(2)) : p;
@@ -17,7 +18,8 @@ module.exports = function createTorrent(
     sourcePath: "",
     output: "",
     private: false,
-    webSeedUrls: []
+    webSeedUrls: [],
+    verbose: false
   }
 ) {
   return new Promise((resolve, reject) => {
@@ -38,7 +40,6 @@ module.exports = function createTorrent(
 
     let stat;
     try {
-      console.log("stat!");
       stat = fs.statSync(expandedPath);
     } catch {
       reject("Given source path doesn't exist!");
@@ -46,7 +47,7 @@ module.exports = function createTorrent(
     }
 
     if (opts.comment) {
-      args.push("-c", `"${opts.comment}"`);
+      args.push("-c", opts.comment);
     }
 
     if (opts.noDate) {
@@ -62,7 +63,7 @@ module.exports = function createTorrent(
     }
 
     if (opts.output) {
-      args.push("-o", `"${opts.output}"`);
+      args.push("-o", opts.output);
     }
 
     if (opts.private) {
@@ -81,21 +82,31 @@ module.exports = function createTorrent(
       args.push("-w", webSeeds);
     }
 
-    args.push(`"${expandedPath}"`);
+    if (opts.verbose) {
+      args.push("-v");
+    }
 
-    console.log(args.join(" "));
+    args.push(expandedPath);
+
+    function DEBUG(verbose) {
+      verbose && _DEBUG(...arguments);
+    }
+
+    DEBUG("Arguments passed to mktorrent:", args);
     const binaryPath = path.join(module.path, "build/Release/mkt");
-    exec(`${binaryPath} ${args.join(" ")}`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`exec error: ${error}`);
-        reject(`exec error: ${error}`);
-        return;
-      }
-      console.log(`stdout: ${stdout}`);
-      console.error(`stderr: ${stderr}`);
-      resolve();
+
+    const cp = spawn(binaryPath, args);
+
+    cp.stdout.on("data", data => {
+      DEBUG("[mktorrent]:", data.toString());
+    });
+
+    cp.stderr.on("data", data => {
+      ERROR("[mktorrent]:", data.toString());
+    });
+
+    cp.on("close", code => {
+      DEBUG(" [mktorrent] Exit code:", code);
     });
   });
 };
-
-console.log("hello there!");
