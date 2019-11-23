@@ -103,10 +103,12 @@ module.exports = function createTorrent(
 
     cp.stderr.on("data", data => {
       ERROR("[mktorrent]:", data.toString());
+      reject(data.toString());
     });
 
     cp.on("close", code => {
       DEBUG(" [mktorrent] Exit code:", code);
+      resolve();
     });
   });
 };
